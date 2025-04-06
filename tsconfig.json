@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true, // Ensures null safety
+    "strictPropertyInitialization": true, // Ensures properties are initialized
+    "noImplicitAny": true, // Prevents implicit 'any' types
+    "resolveJsonModule": true, // Allows importing JSON files
+    "types": ["node", "fastify"], // Includes Fastify types
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "@types/*.d.ts"], // Include your source files
+  "exclude": ["node_modules"] // Exclude dependencies
+}
