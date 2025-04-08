@@ -9,7 +9,7 @@ export async function createJobApplication(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)
     .post(
-      "/job-application",
+      "/job-applications",
       {
         schema: JOB_APPLICATION_SCHEMA,
       },

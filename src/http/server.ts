@@ -16,6 +16,7 @@ import { createJobApplication } from "./routes/job-application/create-job-applic
 import { createAccount } from "./routes/user/create-account/create-account";
 import { getUserProfile } from "./routes/user/get-user-profile/get-user-profile";
 import { listJobApplicationsByUser } from "./routes/job-application/list-job-applications-by-user/list-job-applications-by-user";
+import { updateJobApplicationStatus } from "./routes/job-application/update-job-application-status/update-job-application-status";
 
 const PORT = getEnvVariables().PORT;
 
@@ -44,6 +45,7 @@ server.register(authWithPassword);
 server.register(getUserProfile);
 server.register(createJobApplication);
 server.register(listJobApplicationsByUser);
+server.register(updateJobApplicationStatus);
 
 server.setErrorHandler(errorHandler);
 
