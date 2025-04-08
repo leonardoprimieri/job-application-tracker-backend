@@ -2,6 +2,7 @@ import { ApplicationStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const JOB_APPLICATION_SCHEMA = {
+  tags: ["job-application"],
   body: z.object({
     companyName: z.string(),
     jobTitle: z.string(),
