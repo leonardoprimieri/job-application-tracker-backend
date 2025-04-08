@@ -1,9 +1,8 @@
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import type { FastifyInstance } from "fastify/types/instance";
-import { z } from "zod";
-import { JobApplicationStatusEnum } from "~/enums/job-application-status.enum";
 import { authMiddleware } from "~/http/middlewares/auth";
 import { prisma } from "~/lib/prisma";
+import { JOB_APPLICATION_SCHEMA } from "./create-job-application-schema";
 
 export async function createJobApplication(app: FastifyInstance) {
   app
@@ -12,27 +11,7 @@ export async function createJobApplication(app: FastifyInstance) {
     .post(
       "/job-application",
       {
-        schema: {
-          body: z.object({
-            companyName: z.string(),
-            jobTitle: z.string(),
-            jobUrl: z.string().url(),
-            notes: z.string().optional(),
-            status: z.nativeEnum(JobApplicationStatusEnum),
-            appliedDate: z.string(),
-          }),
-          summary: "Create a Job Application",
-          response: {
-            201: z.object({
-              companyName: z.string(),
-              jobTitle: z.string(),
-              jobUrl: z.string().url(),
-              notes: z.string().optional(),
-              status: z.nativeEnum(JobApplicationStatusEnum),
-              appliedDate: z.date(),
-            }),
-          },
-        },
+        schema: JOB_APPLICATION_SCHEMA,
       },
       async (request, reply) => {
         const userId = await request.getCurrentUserId();
@@ -49,7 +28,6 @@ export async function createJobApplication(app: FastifyInstance) {
           },
         });
 
-        // @ts-expect-error - will fix later
         return reply.status(201).send(createdJobApplication);
       }
     );

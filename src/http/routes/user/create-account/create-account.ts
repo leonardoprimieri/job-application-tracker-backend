@@ -1,29 +1,16 @@
 import type { FastifyInstance } from "fastify/types/instance";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
-import { z } from "zod";
 import { prisma } from "~/lib/prisma";
 
 import { hash } from "bcryptjs";
-import { BadRequestError } from "../_errors/bad-request-error";
+import { CREATE_ACCOUNT_SCHEMA } from "./create-account-schema";
+import { BadRequestError } from "../../_errors/bad-request-error";
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     "/users",
     {
-      schema: {
-        tags: ["account"],
-        summary: "Create a new user",
-        body: z.object({
-          name: z.string(),
-          email: z.string().email(),
-          password: z.string().min(6),
-        }),
-        response: {
-          201: z.object({
-            message: z.string().optional(),
-          }),
-        },
-      },
+      schema: CREATE_ACCOUNT_SCHEMA,
     },
     async (request, reply) => {
       const userAlreadyExists = await prisma.user.findUnique({

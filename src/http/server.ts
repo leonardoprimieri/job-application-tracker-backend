@@ -9,12 +9,12 @@ import {
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifyJwt from "@fastify/jwt";
-import { createAccount } from "./routes/user/create-account";
-import { authWithPassword } from "./routes/user/auth-with-password";
-import { getUserProfile } from "./routes/user/get-user-profile";
+import { authWithPassword } from "./routes/user/auth-with-password/auth-with-password";
 import { errorHandler } from "./error-handler";
 import { getEnvVariables } from "~/env/get-env-variables";
-import { createJobApplication } from "./routes/job-application/create-job-application";
+import { createJobApplication } from "./routes/job-application/create-job-application/create-job-application";
+import { createAccount } from "./routes/user/create-account/create-account";
+import { getUserProfile } from "./routes/user/get-user-profile/get-user-profile";
 
 const PORT = getEnvVariables().PORT;
 
