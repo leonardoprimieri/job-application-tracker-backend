@@ -13,7 +13,7 @@ import { authWithPassword } from "./routes/auth/auth-with-password/auth-with-pas
 import { errorHandler } from "./error-handler";
 import { getEnvVariables } from "~/env/get-env-variables";
 import { createJobApplication } from "./routes/job-application/create-job-application/create-job-application";
-import { createAccount } from "./routes/user/create-account/create-account";
+import { createAccount } from "./routes/auth/create-account/create-account";
 import { getUserProfile } from "./routes/user/get-user-profile/get-user-profile";
 import { listJobApplicationsByUser } from "./routes/job-application/list-job-applications-by-user/list-job-applications-by-user";
 import { updateJobApplicationStatus } from "./routes/job-application/update-job-application-status/update-job-application-status";

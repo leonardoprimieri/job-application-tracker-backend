@@ -9,7 +9,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
-    "/users",
+    "/sign-in",
     {
       schema: CREATE_ACCOUNT_SCHEMA,
     },

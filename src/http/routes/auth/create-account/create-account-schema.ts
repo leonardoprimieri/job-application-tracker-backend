@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const CREATE_ACCOUNT_SCHEMA = {
-  tags: ["account"],
+  tags: ["auth"],
   summary: "Create a new user",
   body: z.object({
     name: z.string(),
