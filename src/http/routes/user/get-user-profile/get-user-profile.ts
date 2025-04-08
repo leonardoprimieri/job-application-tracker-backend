@@ -21,7 +21,7 @@ export async function getUserProfile(app: FastifyInstance) {
 
           const user = await prisma.user.findUnique({
             where: {
-              id: "123",
+              id: userId,
             },
             select: {
               id: true,
