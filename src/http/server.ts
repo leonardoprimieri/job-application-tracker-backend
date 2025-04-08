@@ -9,7 +9,7 @@ import {
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifyJwt from "@fastify/jwt";
-import { authWithPassword } from "./routes/user/auth-with-password/auth-with-password";
+import { authWithPassword } from "./routes/auth/auth-with-password/auth-with-password";
 import { errorHandler } from "./error-handler";
 import { getEnvVariables } from "~/env/get-env-variables";
 import { createJobApplication } from "./routes/job-application/create-job-application/create-job-application";
