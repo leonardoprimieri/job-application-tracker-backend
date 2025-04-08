@@ -5,13 +5,14 @@ import { UPDATE_JOB_APPLICATION_STATUS_SCHEMA } from "./update-job-application-s
 import { prisma } from "~/lib/prisma";
 import { NotFoundError } from "../../_errors/not-found-error";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { BadRequestError } from "../../_errors/bad-request-error";
 
 export function updateJobApplicationStatus(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)
     .patch(
-      "/job-applications/:jobApplicationId",
+      "/job-applications/:jobApplicationId/status",
       {
         schema: UPDATE_JOB_APPLICATION_STATUS_SCHEMA,
       },
@@ -29,14 +30,14 @@ export function updateJobApplicationStatus(app: FastifyInstance) {
               status: request.body.status,
             },
           });
+
+          return reply.status(204).send();
         } catch (err) {
           if (err instanceof PrismaClientKnownRequestError) {
-            throw new NotFoundError(err.meta?.cause as string);
+            throw new BadRequestError(err.meta?.cause as string);
           }
           throw err;
         }
-
-        return reply.status(204).send();
       }
     );
 }

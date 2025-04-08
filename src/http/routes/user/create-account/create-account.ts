@@ -5,6 +5,7 @@ import { prisma } from "~/lib/prisma";
 import { hash } from "bcryptjs";
 import { CREATE_ACCOUNT_SCHEMA } from "./create-account-schema";
 import { BadRequestError } from "../../_errors/bad-request-error";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -25,15 +26,22 @@ export async function createAccount(app: FastifyInstance) {
 
       const passwordHash = await hash(request.body.password, 6);
 
-      await prisma.user.create({
-        data: {
-          name: request.body.name,
-          email: request.body.email,
-          passwordHash,
-        },
-      });
+      try {
+        await prisma.user.create({
+          data: {
+            name: request.body.name,
+            email: request.body.email,
+            passwordHash,
+          },
+        });
 
-      return reply.status(201).send();
+        return reply.status(201).send();
+      } catch (err) {
+        if (err instanceof PrismaClientKnownRequestError) {
+          throw new BadRequestError(err.meta?.cause as string);
+        }
+        throw err;
+      }
     }
   );
 }
