@@ -5,7 +5,7 @@ import { REQUEST_PASSWORD_RECOVER_SCHEMA } from "./request-password-recover-sche
 
 export function requestPasswordRecover(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
-    "/password/recover",
+    "/password/request-recover",
     {
       schema: REQUEST_PASSWORD_RECOVER_SCHEMA,
     },
@@ -18,6 +18,14 @@ export function requestPasswordRecover(app: FastifyInstance) {
         return reply.status(200).send();
       }
 
+      // delete previous user's tokens
+      await prisma.token.deleteMany({
+        where: {
+          userId: userFromEmail.id,
+          type: "PASSWORD_RECOVER",
+        },
+      });
+
       const recoverPasswordToken = await prisma.token.create({
         data: {
           type: "PASSWORD_RECOVER",
@@ -29,7 +37,7 @@ export function requestPasswordRecover(app: FastifyInstance) {
         recoverPasswordToken: recoverPasswordToken.id,
       });
 
-      return reply.status(200).send();
+      return reply.status(204).send();
     }
   );
 }

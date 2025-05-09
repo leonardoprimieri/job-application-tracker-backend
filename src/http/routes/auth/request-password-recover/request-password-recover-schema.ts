@@ -7,6 +7,6 @@ export const REQUEST_PASSWORD_RECOVER_SCHEMA = {
     email: z.string().email(),
   }),
   response: {
-    200: z.null(),
+    204: z.null(),
   },
 };

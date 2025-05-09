@@ -6,6 +6,7 @@ import { hash } from "bcryptjs";
 import { CREATE_ACCOUNT_SCHEMA } from "./create-account-schema";
 import { BadRequestError } from "../../_errors/bad-request-error";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { hashPassword } from "~/auth/utils/hashPassword";
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -14,9 +15,11 @@ export async function createAccount(app: FastifyInstance) {
       schema: CREATE_ACCOUNT_SCHEMA,
     },
     async (request, reply) => {
+      const { password, name, email } = request.body;
+
       const userAlreadyExists = await prisma.user.findUnique({
         where: {
-          email: request.body.email,
+          email,
         },
       });
 
@@ -24,13 +27,13 @@ export async function createAccount(app: FastifyInstance) {
         throw new BadRequestError("User already exists.");
       }
 
-      const passwordHash = await hash(request.body.password, 6);
+      const passwordHash = await hashPassword(password);
 
       try {
         await prisma.user.create({
           data: {
-            name: request.body.name,
-            email: request.body.email,
+            name,
+            email,
             passwordHash,
           },
         });

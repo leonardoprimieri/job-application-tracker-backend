@@ -18,6 +18,7 @@ import { getUserProfile } from "./routes/user/get-user-profile/get-user-profile"
 import { listJobApplicationsByUser } from "./routes/job-application/list-job-applications-by-user/list-job-applications-by-user";
 import { updateJobApplicationStatus } from "./routes/job-application/update-job-application-status/update-job-application-status";
 import { requestPasswordRecover } from "./routes/auth/request-password-recover/request-password-recover";
+import { resetPassword } from "./routes/auth/reset-password/reset-password";
 
 const PORT = getEnvVariables().PORT;
 
@@ -45,6 +46,7 @@ server.register(fastifySwaggerUi, { routePrefix: "/docs" });
 server.register(createAccount);
 server.register(authWithPassword);
 server.register(requestPasswordRecover);
+server.register(resetPassword);
 
 // user
 server.register(getUserProfile);

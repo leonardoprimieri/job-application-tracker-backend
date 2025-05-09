@@ -1,9 +1,9 @@
-import { compare } from "bcryptjs";
 import type { FastifyInstance } from "fastify/types/instance";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { prisma } from "~/lib/prisma";
 import { BadRequestError } from "../../_errors/bad-request-error";
 import { AUTH_WITH_PASSWORD_SCHEMA } from "./auth-with-password-schema";
+import { comparePassword } from "~/auth/utils/comparePassword";
 
 export async function authWithPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -26,7 +26,7 @@ export async function authWithPassword(app: FastifyInstance) {
         throw new BadRequestError("Invalid Credentials.");
       }
 
-      const isPasswordCorrect = await compare(
+      const isPasswordCorrect = await comparePassword(
         request.body.password,
         userFromEmail.passwordHash
       );
