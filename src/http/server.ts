@@ -19,6 +19,7 @@ import { listJobApplicationsByUser } from "./routes/job-application/list-job-app
 import { updateJobApplicationStatus } from "./routes/job-application/update-job-application-status/update-job-application-status";
 import { requestPasswordRecover } from "./routes/auth/request-password-recover/request-password-recover";
 import { resetPassword } from "./routes/auth/reset-password/reset-password";
+import { authWithGithub } from "./routes/auth/auth-with-github/auth-with-github";
 
 const PORT = getEnvVariables().PORT;
 
@@ -47,6 +48,7 @@ server.register(createAccount);
 server.register(authWithPassword);
 server.register(requestPasswordRecover);
 server.register(resetPassword);
+server.register(authWithGithub);
 
 // user
 server.register(getUserProfile);

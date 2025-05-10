@@ -10,7 +10,7 @@ import { hashPassword } from "~/auth/utils/hashPassword";
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
-    "/sign-in",
+    "/sign-up",
     {
       schema: CREATE_ACCOUNT_SCHEMA,
     },
