@@ -4,6 +4,7 @@ import { z } from "zod";
 export const LIST_JOB_APPLICATIONS_BY_USER_SCHEMA = {
   summary: "List All User Job Applications",
   tags: ["job-applications"],
+  security: [{ bearerAuth: [] }],
   response: {
     200: z.array(
       z.object({

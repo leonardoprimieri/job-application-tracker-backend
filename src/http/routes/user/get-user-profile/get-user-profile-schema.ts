@@ -3,6 +3,7 @@ import { z } from "zod";
 export const GET_USER_PROFILE_SCHEMA = {
   tags: ["account"],
   summary: "Returns user information",
+  security: [{ bearerAuth: [] }],
   response: {
     200: z.object({
       id: z.string().uuid(),
