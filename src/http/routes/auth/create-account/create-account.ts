@@ -48,7 +48,6 @@ export async function createAccount(app: FastifyInstance) {
             },
           }
         );
-        console.log("🚀 ~ token:", token);
 
         return reply.status(201).send({
           token,
