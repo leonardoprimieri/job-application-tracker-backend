@@ -25,7 +25,8 @@ export async function getUserProfile(app: FastifyInstance) {
             },
             select: {
               id: true,
-              name: true,
+              firstName: true,
+              lastName: true,
               email: true,
               avatarUrl: true,
             },

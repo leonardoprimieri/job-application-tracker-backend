@@ -69,7 +69,7 @@ export async function authWithGithub(app: FastifyInstance) {
         data: {
           email: githubUserData?.data.email,
           avatarUrl: githubUserData?.data?.avatar_url,
-          name: githubUserData?.data?.name,
+          firstName: githubUserData?.data?.name,
         },
       });
 

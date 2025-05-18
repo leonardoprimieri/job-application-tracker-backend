@@ -7,7 +7,8 @@ export const GET_USER_PROFILE_SCHEMA = {
   response: {
     200: z.object({
       id: z.string().uuid(),
-      name: z.string().nullable(),
+      firstName: z.string().nullable(),
+      lastName: z.string().nullable(),
       email: z.string().email().nullable(),
       avatarUrl: z.string().url().nullable(),
     }),

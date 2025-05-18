@@ -2,7 +2,6 @@ import type { FastifyInstance } from "fastify/types/instance";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { prisma } from "~/lib/prisma";
 
-import { hash } from "bcryptjs";
 import { CREATE_ACCOUNT_SCHEMA } from "./create-account-schema";
 import { BadRequestError } from "../../_errors/bad-request-error";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
@@ -15,7 +14,7 @@ export async function createAccount(app: FastifyInstance) {
       schema: CREATE_ACCOUNT_SCHEMA,
     },
     async (request, reply) => {
-      const { password, name, email } = request.body;
+      const { password, email, firstName, lastName } = request.body;
 
       const userAlreadyExists = await prisma.user.findUnique({
         where: {
@@ -30,15 +29,30 @@ export async function createAccount(app: FastifyInstance) {
       const passwordHash = await hashPassword(password);
 
       try {
-        await prisma.user.create({
+        const user = await prisma.user.create({
           data: {
-            name,
             email,
             passwordHash,
+            firstName,
+            lastName,
           },
         });
 
-        return reply.status(201).send();
+        const token = await reply.jwtSign(
+          {
+            sub: user.id,
+          },
+          {
+            sign: {
+              expiresIn: "7d",
+            },
+          }
+        );
+        console.log("🚀 ~ token:", token);
+
+        return reply.status(201).send({
+          token,
+        });
       } catch (err) {
         if (err instanceof PrismaClientKnownRequestError) {
           throw new BadRequestError(err.meta?.cause as string);
