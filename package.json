@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/http/server.ts",
-    "build": "tsup"
+    "build": "tsup",
+    "start": "node dist/http/server.js"
   },
   "keywords": [],
   "author": "Leonardo Merlo Primieri",
