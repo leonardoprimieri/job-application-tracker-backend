@@ -4,7 +4,8 @@
   "main": "src/http/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/http/server.ts"
+    "dev": "tsx watch src/http/server.ts",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "Leonardo Merlo Primieri",
@@ -28,6 +29,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.14.0",
     "prisma": "^6.6.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   }
 }
