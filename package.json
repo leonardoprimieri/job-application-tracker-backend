@@ -1,5 +1,5 @@
 {
-  "name": "job-application-tracker-backend",
+  "name": "job-trackr-backend",
   "version": "1.0.0",
   "main": "src/http/server.js",
   "scripts": {
@@ -26,10 +26,14 @@
     "tsx": "^4.19.3",
     "zod": "^3.24.2"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.15.21",
     "prisma": "^6.6.0",
+    "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   }

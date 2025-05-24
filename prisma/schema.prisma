@@ -63,11 +63,12 @@ model Account {
 model JobApplication {
   id          String            @id @default(uuid())
   companyName String            @map("company_name")
-  jobTitle    String            @map("job_title")
-  jobUrl      String?           @map("job_url")
+  title       String            @map("job_title")
+  url         String?           @map("job_url")
   status      ApplicationStatus @default(APPLIED)
   appliedDate DateTime?         @map("applied_date")
   notes       String?
+  salaryRange String?           @map("salary_range")
   createdAt   DateTime          @default(now()) @map("created_at")
   updatedAt   DateTime          @updatedAt @map("updated_at")
 
@@ -83,4 +84,6 @@ enum ApplicationStatus {
   INTERVIEW
   OFFER
   REJECTED
+  ACCEPTED
+  DECLINED
 }

@@ -10,11 +10,12 @@ export const LIST_JOB_APPLICATIONS_BY_USER_SCHEMA = {
       z.object({
         id: z.string().uuid(),
         companyName: z.string(),
-        jobTitle: z.string(),
-        jobUrl: z.string().url().nullish(),
+        title: z.string(),
+        url: z.string().url().nullish(),
         status: z.nativeEnum(ApplicationStatus),
         appliedDate: z.date().nullish(),
         notes: z.string().nullish(),
+        salaryRange: z.string().nullish(),
       })
     ),
   },
