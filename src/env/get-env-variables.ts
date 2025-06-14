@@ -4,6 +4,8 @@ export function getEnvVariables() {
   const GITHUB_AUTH_CLIENT_ID = process.env.GITHUB_AUTH_CLIENT_ID;
   const GITHUB_AUTH_CLIENT_SECRET = process.env.GITHUB_AUTH_CLIENT_SECRET;
   const GITHUB_AUTH_REDIRECT_URL = process.env.GITHUB_AUTH_REDIRECT_URL;
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const FRONTEND_RESET_EMAIL_URL = process.env.FRONTEND_RESET_EMAIL_URL;
 
   if (!JWT_SECRET) {
     throw new Error("JWT_SECRET environment variable is required");
@@ -25,11 +27,23 @@ export function getEnvVariables() {
     );
   }
 
+  if (!RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY environment variable is required");
+  }
+
+  if (!FRONTEND_RESET_EMAIL_URL) {
+    throw new Error(
+      "FRONTEND_RESET_EMAIL_URL environment variable is required"
+    );
+  }
+
   return {
     PORT,
     JWT_SECRET,
     GITHUB_AUTH_CLIENT_ID,
     GITHUB_AUTH_CLIENT_SECRET,
     GITHUB_AUTH_REDIRECT_URL,
+    RESEND_API_KEY,
+    FRONTEND_RESET_EMAIL_URL,
   };
 }

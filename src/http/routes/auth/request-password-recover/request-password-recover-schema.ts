@@ -8,5 +8,8 @@ export const REQUEST_PASSWORD_RECOVER_SCHEMA = {
   }),
   response: {
     204: z.null(),
+    500: z.object({
+      message: z.string(),
+    }),
   },
 };

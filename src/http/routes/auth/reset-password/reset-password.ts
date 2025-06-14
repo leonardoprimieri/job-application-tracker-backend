@@ -20,7 +20,7 @@ export function resetPassword(app: FastifyInstance) {
         },
       });
 
-      if (!token) throw new UnauthorizedError();
+      if (!token) throw new UnauthorizedError("Invalid or expired token.");
 
       const passwordHash = await hashPassword(password);
 
@@ -30,6 +30,14 @@ export function resetPassword(app: FastifyInstance) {
         },
         data: {
           passwordHash,
+        },
+      });
+
+      // delete previous user's tokens
+      await prisma.token.deleteMany({
+        where: {
+          userId: token.userId,
+          type: "PASSWORD_RECOVER",
         },
       });
 
